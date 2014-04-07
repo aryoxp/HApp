@@ -6,30 +6,30 @@ import java.net.Socket;
 
 import com.labmobile.happ.service.interfaces.CommunicationInterface;
 
-public class ServerThread implements Runnable {
+public class CommunicationServerRunnable implements Runnable {
 
-	ServerSocket serverSocket;
-	Socket clientSocket;
-	CommunicationInterface communicationInterface;
+	private ServerSocket serverSocket;
+	private Socket clientSocket;
+	private CommunicationInterface communicationInterface;
 	public static final int SERVERPORT = 8888;
 	
 	
-	public ServerThread(CommunicationInterface communicationInterface) {
+	public CommunicationServerRunnable(CommunicationInterface communicationInterface) {
 		this.communicationInterface = communicationInterface;
 	}
 	
 	@Override
 	public void run() {
-		clientSocket = null;
+		this.clientSocket = null;
 		try {
-			serverSocket = new ServerSocket(SERVERPORT);
+			this.serverSocket = new ServerSocket(SERVERPORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 				
 		while(!Thread.currentThread().isInterrupted()) {
 			try {
-				clientSocket = serverSocket.accept();
+				this.clientSocket = this.serverSocket.accept();
 				CommunicationThread communicationThread = new CommunicationThread(clientSocket, communicationInterface);
 				new Thread(communicationThread).start();
 			} catch (IOException e) {
@@ -38,15 +38,16 @@ public class ServerThread implements Runnable {
 				break;
 			}
 		}
+		this.closeServerSocket();
 	}
 	
 	public void closeServerSocket() {
 		try {
+			this.serverSocket.close();
 			this.clientSocket.close();
-			//this.serverSocket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

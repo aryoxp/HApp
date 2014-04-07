@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+ 
+    <PreferenceCategory android:title="@string/pref_network_settings" >
+        <EditTextPreference
+                android:title="@string/pref_service_port_number"
+                android:summary="@string/pref_service_port_number_summary"
+                android:defaultValue="8888"
+                android:key="prefPortNumber" />
+    </PreferenceCategory>
+ 	<PreferenceCategory android:title="@string/pref_application_settings" >
+        <CheckBoxPreference
+            	android:title="@string/pref_start_service_automatically"
+            	android:summary="@string/pref_start_service_automatically_summary"
+            	android:defaultValue="true"
+            	android:key="prefStartServiceAuto" />
+    </PreferenceCategory>
+</PreferenceScreen>

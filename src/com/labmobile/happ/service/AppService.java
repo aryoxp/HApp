@@ -15,7 +15,7 @@ public class AppService extends Service implements CommunicationInterface {
 	private String message;
 	private Handler messageHandler;
 	private Thread serverThread;
-	private ServerThread communicationServerThread;
+	private CommunicationServerRunnable communicationServerRunnable;
 	
 	private final IBinder binderInterface = new ServiceBinder();
 	
@@ -23,10 +23,12 @@ public class AppService extends Service implements CommunicationInterface {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d("Hotel App Service", "Service started");
 		this.messageHandler = new Handler();
-		this.communicationServerThread = new ServerThread(this);
-		this.serverThread = new Thread(communicationServerThread);
-		this.serverThread.start();
-		return Service.START_NOT_STICKY;
+		if(this.serverThread == null || !this.serverThread.isAlive()) {
+			this.communicationServerRunnable = new CommunicationServerRunnable(this);
+			this.serverThread = new Thread(communicationServerRunnable);
+			this.serverThread.start();
+		}
+		return Service.START_STICKY;
 	}
 	
 	@Override
@@ -41,7 +43,10 @@ public class AppService extends Service implements CommunicationInterface {
 
 	@Override
 	public void onDestroy() {
-		this.communicationServerThread.closeServerSocket();
+		
+		this.serverThread.interrupt();
+		this.communicationServerRunnable.closeServerSocket();
+		this.stopService();
 		Log.d("Hotel App Service", "Server socket closed");
 		super.onDestroy();
 	}

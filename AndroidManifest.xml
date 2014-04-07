@@ -28,6 +28,10 @@
             android:name="com.labmobile.happ.NetworkActivity"
             android:label="Network">
         </activity>
+        <activity
+            android:name="com.labmobile.happ.ApplicationSettings"
+            android:label="Settings">
+        </activity>
         <service 
             android:name="com.labmobile.happ.service.AppService"
             android:label="Hotel App Android Service"

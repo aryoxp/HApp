@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -25,7 +26,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViewById(R.id.mainNetworkButton).setOnClickListener(this);
-		
 	}
 	
 	@Override
@@ -39,7 +39,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onResume() {
-		
 		super.onResume();
 	}
 
@@ -51,10 +50,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	@Override
-	protected void onPause() {
+	protected void onDestroy() {
+		this.unbindService(serviceConnection);
 		if(this.serviceIntent != null)
 			this.stopService(serviceIntent);
-		super.onPause();
+		super.onDestroy();
 	}
 	
 	private ServiceConnection serviceConnection = new ServiceConnection() {
@@ -85,5 +85,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		Intent i = new Intent(getApplicationContext(), ApplicationSettings.class);
+		this.startActivity(i);
+		return super.onOptionsItemSelected(item);
+	}
 }
