@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
- 
     <PreferenceCategory android:title="@string/pref_network_settings" >
         <EditTextPreference
                 android:title="@string/pref_service_port_number"
@@ -9,6 +8,14 @@
                 android:key="prefPortNumber" />
     </PreferenceCategory>
  	<PreferenceCategory android:title="@string/pref_application_settings" >
+ 	    <ListPreference
+ 	        android:title="@string/pref_language"
+ 	        android:summary="@string/pref_language_summary"
+ 	        android:defaultValue="en"
+ 	        android:entries="@array/pref_language_options_array"
+ 	        android:entryValues="@array/pref_language_values_array"
+ 	        android:key="prefLanguage" 
+ 	        />
         <CheckBoxPreference
             	android:title="@string/pref_start_service_automatically"
             	android:summary="@string/pref_start_service_automatically_summary"

@@ -1,7 +1,10 @@
 package com.labmobile.happ;
 
+import java.util.Locale;
+
 import com.labmobile.happ.service.AppService;
 import com.labmobile.happ.service.AppService.ServiceBinder;
+import com.labmobile.happ.utility.ClockUtility;
 
 import android.os.Bundle;
 import android.os.IBinder;
@@ -14,18 +17,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 
 	Intent serviceIntent;
 	AppService appService;
+	Locale locale = Locale.US;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViewById(R.id.mainNetworkButton).setOnClickListener(this);
+		TextView clockText = (TextView) this.findViewById(R.id.mainClockText);
+		clockText.setOnClickListener(this);
+		ClockUtility clockUtility = new ClockUtility(clockText);
+		clockUtility.startClock();
 	}
 	
 	@Override
@@ -80,7 +89,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent i = new Intent(getApplicationContext(), NetworkActivity.class);
 			this.startActivity(i);
 			break;
-
+		case R.id.mainClockText:
+			Intent settingIntent = new Intent(getApplicationContext(), AppSettingActivity.class);
+			this.startActivity(settingIntent);
+			break;
 		default:
 			break;
 		}
@@ -89,7 +101,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
-		Intent i = new Intent(getApplicationContext(), ApplicationSettings.class);
+		Intent i = new Intent(getApplicationContext(), AppSettingActivity.class);
 		this.startActivity(i);
 		return super.onOptionsItemSelected(item);
 	}

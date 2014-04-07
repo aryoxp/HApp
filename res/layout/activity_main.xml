@@ -1,28 +1,56 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFrameContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:background="@drawable/bg" >
 
     <TextView
-        android:id="@+id/mainHelloText"
-        android:layout_width="wrap_content"
+        android:id="@+id/mainWelcomeText"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/mainNetworkButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mainHelloText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text="Network Setup"
+        android:background="#22000000"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="10dp"
+        android:text="Welcome to Hotel Name"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
         tools:ignore="HardcodedText" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/mainClockText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:paddingTop="15dp"
+        android:paddingRight="30dp"
+        android:text="Medium Text"
+        android:textColor="#ffffff"
+        android:textSize="38sp"
+        android:fontFamily="sans-serif-condensed"
+        tools:ignore="HardcodedText" />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
+
+        <Button
+            android:id="@+id/mainNetworkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Network Setup"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+</FrameLayout>
